@@ -1,5 +1,5 @@
 // Global Variables //
-let sims = 5000
+let sims = 3500
 let resultsArray = [];
 let set = "";
 let packsToBuy = 0;
