@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hearthstone Completion Simulator</title>
+    <link rel="icon" href="https://www.shareicon.net/data/256x256/2015/09/21/104684_back_358x534.png">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Volkhov:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Martel:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+<style>
+    .box {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        max-width: 700px;
+        margin: auto;
+        background-color: #fff7fb;
+        border: 2px solid black;
+    }
+    .head {
+        font-family: 'Merriweather', serif;
+        font-size: 56px;
+        text-align: left;
+        background: #5ce4fa;
+        height: 125px;
+        border-top: 1px solid black;
+        border-bottom: 2px solid black;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        line-height: 90%;
+        padding: 10px;
+    }
+        #infoHead {
+            font-size: 48px;
+            background: #ff9494;
+            height: 65px;
+        }
+        #costHead {
+            font-size: 48px;
+            background: lightgreen;
+            height: 65px;
+        }
+        #solutionHead {
+            font-size: 48px;
+            background: #c37ff1;
+            height: 65px;
+        }
+
+
+    .subhead {
+        font-size: 16px;
+        padding: 5px;
+        background-color: lavender;
+        border-bottom: 2px solid black;
+    }
+        #infoSubhead {
+            background-color: #ffd3d3;
+        }
+        #costSubhead {
+            background-color: #d4fad4;
+        }
+        #solutionSubhead {
+            background-color: #e3bdff;
+        }
+
+    .expansionGroups {
+        font-weight: bolder;
+    }
+    body {
+        background-color: seashell;
+
+    }
+    #avgResultsOutput, #avgCostOutput  {
+        font-size: 24px;
+        text-align: center;
+    }
+    #minResultsOutput, #maxResultsOutput {
+        text-align: center;
+    }
+    #top {
+        border-top: 40px;
+        background: #f1f1f1;
+    }
+    #simulation {
+        padding: 5px;
+    }
+    #discussing {
+        padding: 10px;
+    }
+    .image {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    input[type=number] {
+        width: 110px;
+    }
+
+</style>
+</head>
+
+<body>
+<br>
+
+    <div class="box">
+        <div id="top">
+            <div class="head">Hearthstone Set Completion Simulator</div>
+            <div class="subhead">A tool to estimate how many packs you would need to open to complete a card set based on how many cards you already own from the set by running 3000 rounds of pack opening simulations.</div>
+        </div>
+
+        <div id="simulation">
+        <br>
+            <form>
+                <select name="htmlSet" id="htmlSet" required>
+                    <option class="expansionGroups" id="invalid" disabled>Wild Expansions</option>
+                    <option value="Goblins vs Gnomes">Goblins vs Gnomes</option>
+                    <option value="The Grand Tournament">The Grand Tournament</option>
+                    <option value="Whispers of the Old Gods">Whispers of the Old Gods</option>
+                    <option value="Mean Streets of Gadgetzan">Mean Streets of Gadgetzan</option>
+                    <option value="Journey to UnGoro">Journey to Un'Goro</option>
+                    <option value="Knights of the Frozen Throne">Knights of the Frozen Throne</option>
+                    <option value="Kobolds & Catacombs">Kobolds & Catacombs</option>
+                    <option value="The Witchwood">The Witchwood</option>
+                    <option value="The Boomsday Project">The Boomsday Project</option>
+                    <option value="Rastakhan Rumble">Rastakhan's Rumble</option>
+                    <option class="expansionGroups" disabled>Standard Expansions</option>
+                    <option value="Classic Set">Classic Set</option>;
+                    <option value="Rise of Shadows">Rise of Shadows</option>
+                    <option value="Uldum">Saviors of Uldum</option>
+                    <option value="Descent of Dragons">Descent of Dragons</option>
+                    <option value="Ashes of Outland">Ashes of Outland</option>
+                    <option value="Scholomance Academy">Scholomance Academy</option>
+                    <option value="Darkmoon Faire"  selected>Darkmoon Faire</option>
+                </select>
+                <br><br>
+
+                    <input type=number min=0 name="commons" id="commons" placeholder="Commons"/>
+                    <input type=number min=0 name="rares" id="rares" placeholder="Rares"/>
+                    <input type=number min=0 name="epics" id="epics" placeholder="Epics"/>
+                    <input type=number min=0 name="legendaries" id="legendaries" placeholder="Legendaries"/>
+
+                <br><br>
+            </form>
+
+                <button onclick=completionSim(htmlSet.value,commons.value,rares.value,epics.value,legendaries.value)>Run Simulation</button>
+            <hr>
+                <script src="HearthstoneCardPacks.js"></script>
+                    <p id="avgResultsOutput"></p>
+                    <p id="avgCostOutput"></p>
+                    <div id="minResultsOutput"></div>
+                    <div id="maxResultsOutput"></div>
+
+
+        </div>
+    </div>
+
+<br><br>
+
+<div class="box">
+<div id="top">
+
+    <div class="head" id="infoHead">Retrieve Your Information</div>
+        <div id="infoSubhead" class="subhead">
+            To save yourself the trouble of having to count how many of each rarity of cards you own for each set, you can use HSReplay's collection tracker to run a personalized simulation.
+        </div>
+</div>
+
+    <p>
+        <ol>
+            <li>Download and install <a href="https://hsreplay.net/downloads/" target="_blank">Hearthstone Deck Tracker</a></li>
+            <li>Sign in on the Deck Tracker App</li>
+            <li>Open your collection in game with the Deck Tracker active to sync</li>
+            <li>View collection info by set on <a href="https://hsreplay.net/collection/mine/" target="_blank">HSReplay's Site</a></li>
+        </ol>
+    </p>
+
+</div>
+
+<br><br>
+
+<div class="box">
+    <div id="top">
+        <div class="head" id="costHead">The Cost of Hearthstone</div>
+        <div class="subhead" id="costSubhead">With the lack of free methods or events for players to gain packs to counteract Hearthstone's unforgiving pack RNG, it is incredibly costly for players to complete their collection.</div>
+    </div>
+    <p id="discussing">
+        Determining what a "competitively viable completion percentage" for each set in standard would be a complete project in of itself.
+        But even using an incredibly conservative of estimate of 25% standard set completion rate, <b> a player would on average need to spend more than $250 on card packs play Hearthstone at a competitive level.</b>
+        <br><br>
+        <img class="image" height=95% width=95%  src="https://i.imgur.com/3wWoVpE.jpg">
+        <br>
+        However, these calculations do not take into consideration free rewards that are offered to players which have been at the center of discourse as of late.
+        But even if reworked rewards system was able to slash the cost in half, a new player is being expected to spend more than the cost of two AAA games to find out if they like playing Hearthstone.
+    </p>
+</div>
+
+<br><br>
+
+<div class="box">
+    <div id="top">
+        <div class="head" id="solutionHead">Potential Solutions</div>
+        <div class="subhead" id="solutionSubhead">Simulating how Blizzard could dramatically improve the Hearthstone player experience by just slightly adjusting a few variables.</div>
+    </div>
+    <p id="discussing">
+        As I was putting the final touches on this project, I ran across <a href="https://old.reddit.com/r/hearthstone/comments/jwjaz0/pity_timers_for_legendaries_epics_should_be_halved/" target="_blank">this thread</a>
+        over on the Hearthstone subreddit that recommended adjusting the pity timers to make obtaining cards easier for players. The simulation allows for tweaks like this to be made so ran it with a few adjustments suggested from the thread: </p>
+            <ol><li>Disenchanting cards giving double the current amount of dust</li>
+            <li>Cards cost half as much to craft & disenchanting giving double dust</li>
+            <li>Double the speed of the legendary and epic <a href="https://old.reddit.com/r/hearthstone/comments/3zaeou/pity_timer_on_packs_opening_analysiskinda_proofed/" target="_blank">pity timers</a></li>
+            <li>All above adjustments done together</li></ol>
+    <p id="discussing">
+        Below are the results on how many packs it would take to complete 25% of the entire standard set with each of those adjustments in place.
+    </p>
+    <img class="image" height=95% width=95%  src="https://i.imgur.com/LGnnFkZ.jpg">
+    <br>
+    <p id="discussing">
+        Seeing that even if the dust system was completely overhauled that players would gain only about 30 packs and $50 should really speak to how rough the current state of the game is. Changes to the dust system are much more likely than doubling the speed of pity timers because while the latter
+        is shown above to be much more effective, it would be a change much less "visible" to players.
+    </p>
+    <p id="discussing">
+        This change to the dust system combined with the recently promised overhaul to the rewards track together would still leave the game costly for players but would be a huge positive improvement for the game.
+    </p>
+</div>
+
+
+<br><br><br><br><br><br><br><br><br><br>
+
+</body>
+</html>
