@@ -140,9 +140,10 @@
                     <input type=number min=0 name="legendaries" id="legendaries" placeholder="Legendaries"/>
 
                 <br><br>
+                <button onclick=completionSim(htmlSet.value,commons.value,rares.value,epics.value,legendaries.value)>Run Simulation</button>
             </form>
 
-                <button onclick=completionSim(htmlSet.value,commons.value,rares.value,epics.value,legendaries.value)>Run Simulation
+                
             <hr>
                 <script src="HearthstoneCardPacks.js"></script>
                     <p id="avgResultsOutput"></p>
