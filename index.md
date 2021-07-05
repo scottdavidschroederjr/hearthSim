@@ -144,7 +144,7 @@
 
                 <button onclick=completionSim(htmlSet.value,commons.value,rares.value,epics.value,legendaries.value)>Run Simulation</button>
             <hr>
-                <script src="HearthstoneCardPacks.js"></script>
+                <script src="js/HearthstoneCardPacks.js"></script>
                     <p id="avgResultsOutput"></p>
                     <p id="avgCostOutput"></p>
                     <div id="minResultsOutput"></div>
