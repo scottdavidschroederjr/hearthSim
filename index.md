@@ -142,7 +142,7 @@
                 <br><br>
             </form>
 
-                <button type="button" onclick=completionSim(htmlSet.value,commons.value,rares.value,epics.value,legendaries.value)>Run Simulation</button>
+                <button onclick=completionSim(htmlSet.value,commons.value,rares.value,epics.value,legendaries.value)>Run Simulation
             <hr>
                 <script src="HearthstoneCardPacks.js"></script>
                     <p id="avgResultsOutput"></p>
